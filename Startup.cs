@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Owl.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Owl.Services;
 
 namespace Owl
 {
@@ -38,10 +40,14 @@ namespace Owl
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<IdentityUser>(config => {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+          
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -56,6 +62,7 @@ namespace Owl
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                //app.UseStatusCodePagesWithRedirects("/home/error/{0}");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -69,8 +76,21 @@ namespace Owl
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Hew",
+                    template: "New",
+                    defaults: new { controller = "Posts", action = "Create" });
+                routes.MapRoute(
+                    name: "Home",
+                    template: "Home",
+                    defaults: new { controller = "Posts", action = "Index" });
+                routes.MapRoute(
+                    name: "Recent",
+                    template: "Recent",
+                    defaults: new { controller = "Posts", action = "Recent" });
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+               
             });
         }
     }

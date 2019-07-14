@@ -1,0 +1,40 @@
+﻿@model Owl.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="text-center">
+    <h1>New Post</h1>
+</div>
+<hr />
+<div class="row" id="markdown">
+    <div class="col-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Title</label>
+                <input asp-for="PostTitle" class="form-control w-100" id="new-title" />
+                <span asp-validation-for="PostTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Data</label>
+                <textarea asp-for="PostData" v-model="markdownText" id="new-data" class="form-control"></textarea>
+                <span asp-validation-for="PostData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-6" id="mark">
+        <p>{{updateMarkdown(showdown.makeHtml(markdownText))}}</p>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Owl.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@using System.Security.Claims;
+@using Owl.Controllers;
+
+<img class="gravatar mx-auto d-block" src="@PostsController.GetGravatar(User.Identity.Name, "100")" />
+<div class="d-flex justify-content-center">
+    <div>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col">
+                        <a asp-controller="Posts" asp-action="Details" id="post-link" asp-route-id="@item.Id">@item.PostTitle</a> 
+                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id" class="edit far fa-edit"></a>
+                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id" class="delete far fa-trash-alt"></a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="row">
+                <div class="col">
+                    <p>You have 0 posts.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

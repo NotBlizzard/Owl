@@ -1,0 +1,72 @@
+﻿    @model Owl.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@using Owl.Controllers;
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@inject  SignInManager<IdentityUser> SignInManager
+
+<div>
+    <div class="text-center">
+        <h1>@Html.DisplayFor(model => model.PostTitle)</h1>
+        <br />
+        <p>by <img class="gravatar" src="@Html.DisplayFor(model => model.UserEmail)" /></p>
+        <p>@Model.PostDate</p>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @Html.AntiForgeryToken()
+            @if (User.FindFirst(ClaimTypes.NameIdentifier).Value == Model.UserId)
+            {
+                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="edit far fa-edit"></a>
+                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id" class="delete far fa-trash-alt"></a>
+            }
+        }
+    </div>
+    <div id="post-data">@Html.Raw(Model.PostData)</div>
+    <ul class="list-group list-group-flush text-center">
+        @foreach (var m in Model.PostMessages)
+        {   
+
+        <li class="list-group-item p-4 comment">
+            <img class="gravatar-comment" src="@m.UserEmail" />
+            <p>at @m.MessageDate.ToString()</p>
+            @Html.Raw(m.MessageData)
+            @if (SignInManager.IsSignedIn(User))
+            {
+                @if (User.FindFirst(ClaimTypes.NameIdentifier).Value == m.UserId)
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(Model => m.Id)
+                    <i asp-controller="Messages" asp-action="Delete" asp-route-id="@m.Id" id="delete-comment" class="far fa-trash-alt delete"></i>
+                }
+            }
+        </li>
+        }
+    </ul>
+    <br />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="">
+            <div class="row" id="markdown">
+                <div class="col-6" id="new-comment">
+                    <form asp-action="Create" asp-controller="Messages">
+                        @Html.Hidden("PostId", Model.Id)
+                        <div class="form-group">
+                            <label class="control-label">New Comment</label>
+                            <textarea v-model="markdownText" name="MessageData" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="button">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6" id="new-markdown">
+                    <div id="mark">{{updateMarkdown(showdown.makeHtml(markdownText))}}</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

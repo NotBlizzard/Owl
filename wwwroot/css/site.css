@@ -7,10 +7,139 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
+body {
+    font-size: 14px;
+    background-color: #e0e0e0;
+    font-family: "Roboto", sans-serif;
+}
+.list-group-item {
+    background-color: #e0e0e0;
+}
+.form-control {
+    border-radius: 0px!important;
+}
+#title {
+    font-size: 80px;
+    padding: 20px;
+}
+#mark {
+    overflow-wrap: break-word;
+}
+#post-link {
+    text-decoration: none;
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: #202a38;
+    font-size: 20px;
+}
+.gravatar {
+    border-radius: 50%;
+}
+.gravatar-comment {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+#new-comment {
+    padding-left: 20em;
+}
+#new-markdown {
+    padding-right: 20em;
+}
+
+label {
+    font-size: 20px;
+}
+#edit-comment-ajax-form {
+    display: none;
+}
+#time {
+
+}
+#post-data {
+    font-size: 1rem;
+    padding-left: 20em;
+    padding-right: 20em;
+}
+.comment { 
+    font-size: 1rem;
+}
+#login {
+    width: 10%;
+    height: 20%;
+    border: 0;
+    background-color: #94cfd3;
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+}
+#button-logout {
+    border: 0;
+    background-color: transparent;
+    color: #e0e0e0;
+}
+#new-title {
+    width: 200px;
+}
+.btn {
+    border-radius: 0;
+}
+.edit {
+    color: #72b65f!important;
+}
+.edit:hover {
+    text-decoration: none;
+    color: #72b65f!important;
+}
+.delete {
+    color: #8a2c2c!important;
+}
+.delete:hover {
+    text-decoration: none;
+    color: #8a2c2c!important;
+}
+
+#delete-button {
+    background-color: #8a2c2c;
+}
+#edit-button:hover {
+    text-decoration: none;
+    color: white;
+}
+.navbar {
+    background-color: #202a38;
+    color: #e0e0e0!important;
+    height: auto;
+    padding: 0px;
+}
+.button-header {
+    color: #e0e0e0;
+    border: 0;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 2em;
+    padding-top: 4px;
+}
+.button-header:hover {
+    text-decoration: none;
+    color: #e0e0e0;
+}
+.button {
+    border: 0;
+    background-color: #94cfd3;
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+}
+.button:hover {
+    text-decoration: none;
+    color: white;
+}
+#register:hover {
+    background-color: #81aeb1;
 }
 @media (min-width: 768px) {
   html {
@@ -34,6 +163,16 @@ button.accept-policy {
   line-height: inherit;
 }
 
+.active {
+    border-radius: 0!important;
+    background-color: #202a38!important;
+}
+.btn-primary {
+    background-color: #202a38!important;
+    border-color: #202a38!important;
+}
+.nav-pills {
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

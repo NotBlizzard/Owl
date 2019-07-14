@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Owl.Models.Post>
+@using Owl.Controllers
+@{
+    ViewData["Title"] = "Recent";
+}
+
+
+
+
+<h1 class="text-center">Recent Posts</h1>
+<div class="d-flex justify-content-center">
+    <div>
+        @foreach(var item in Model)
+        {
+            <div class="row">
+                <div class="col">
+                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.Id" id="post-link">@item.PostTitle</a> @item.PostDate
+                </div>
+            </div>
+        }
+    </div>
+</div>
